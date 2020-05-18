@@ -2,295 +2,124 @@
 grammar kid;
 
 program
-   : block '.'
+   :consts? functions? glavprog
    ;
-
+glavprog
+    :'main()' block
+    ;
 block
-   : consts? vars? procedure* statement
+   : '{' consts? (vars';')? functions* statement '}'
    ;
 
 consts
-   : CONST ident '=' (INTEGER | FLOAT) (',' ident '=' (INTEGER | FLOAT))* ';'
+   : 'const' vars   (';' 'const' vars) * ';'
    ;
 
 vars
-   : VAR ident ('=' (INTEGER | FLOAT))? (',' ident ('=' (INTEGER | FLOAT))?)* ';'
+   :   type ident ('=' expression)?
    ;
-
-procedure
-   : PROCEDURE ident ';' block ';'
+type
+    : 'char'
+    | 'int'
+    | 'bool'
+    | 'float'
+    ;
+functions
+   : 'funct' ident '('parametr')' block
    ;
-
+parametr
+    : (vars (','vars)*)?
+    ;
 statement
-   : (assignstmt | callstmt | writestmt | bangstmt | beginstmt | ifstmt | whilestmt)?
+   : (assignstmt | writestmt';'  | ifstmt | whilestmt| forstmt | expression';' | callFunct';')?
    ;
-
+callFunct
+    : ident '(' expressionunion ')'
+    ;
 assignstmt
-   : ident ':=' expression
-   ;
-
-callstmt
-   : CALL ident
+   : ident '=' expression
    ;
 
 writestmt
-   : WRITE ident
+   : 'write' '(' expression ')'
    ;
 
-bangstmt
-   : '!' expression
-   ;
-
-beginstmt
-   : BEGIN statement (';' statement)* END
-   ;
 
 ifstmt
-   : IF condition THEN statement
+   : 'if''(' conditionunion')' block ('else' block)?
    ;
 
 whilestmt
-   : WHILE condition DO statement
+   : 'while' '('conditionunion ')' block
    ;
-
+forstmt
+    : 'for' '('beginFor';'conditionunion';'expression')'block
+    ;
 breakstmt
-	: BREAK
+	: 'break'
 	;
 
 continuestmt
-	: CONTINUE
+	: 'continue'
 	;
-condition
-   : ODD expression
-   | expression ('=' | '#' | '<' | '<=' | '>' | '>=') expression
-   ;
+beginFor
+    :(expression|vars)
+    ;
 
+condition
+   : expression
+   |callFunct
+   | expression ('==' | '!=' | '<' | '<=' | '>' | '>=') expression
+   ;
+ conditionunion
+    :condition (('and'|'or')condition)*
+    ;
 expression
    : ('+' | '-')? term (('+' | '-') term)*
    ;
+expressionunion
+    : (expression(',' expression)*)?
+    ;
 
 term
-   : factor (('*' | '/') factor)*
+   : factor (('*' | '/'|'%') factor)*
    ;
 
 factor
    : ident
-   | INTEGER
-   | FLOAT
-   | number
-   | '(' expression ')'
+   |literal
+   | '(' factor ')'
+   | assignstmt
+   |callFunct
    ;
-
+literal
+	:	integerLiteral
+	|	floatingPointLiteral
+	|	booleanLiteral
+	|	charLiteral
+	|	nullLiteral
+	;
+integerLiteral
+    :   number
+    ;
+floatingPointLiteral
+    :   number.number*
+    ;
+booleanLiteral
+	:	'true'
+	|	'false'
+	;
+charLiteral
+    :  '\'' STRING '\''
+    ;
+nullLiteral
+    :   'null'
+    ;
 ident
-   : STRING
+   : STRING (STRING| NUMBER)*
    ;
-
 number
    : NUMBER
-   ;
-
-BREAK
-	: B R E A K
-	;
-
-CONTINUE
-	: C O N T I N U E
-	;
-
-WRITE
-   : W R I T E
-   ;
-
-
-WHILE
-   : W H I L E
-   ;
-
-
-DO
-   : D O
-   ;
-
-
-IF
-   : I F
-   ;
-
-
-THEN
-   : T H E N
-   ;
-
-
-ODD
-   : O D D
-   ;
-
-
-BEGIN
-   : B E G I N
-   ;
-
-
-END
-   : E N D
-   ;
-
-
-CALL
-   : C A L L
-   ;
-
-
-CONST
-   : C O N S T
-   ;
-
-
-VAR
-   : V A R
-   ;
-
-
-PROCEDURE
-   : P R O C E D U R E
-   ;
-
-FLOAT
-	:  NUMBER'.'NUMBER
-	;
-
-INTEGER
-	:  NUMBER
-	;
-
-fragment A
-   : ('a' | 'A')
-   ;
-
-
-fragment B
-   : ('b' | 'B')
-   ;
-
-
-fragment C
-   : ('c' | 'C')
-   ;
-
-
-fragment D
-   : ('d' | 'D')
-   ;
-
-
-fragment E
-   : ('e' | 'E')
-   ;
-
-
-fragment F
-   : ('f' | 'F')
-   ;
-
-
-fragment G
-   : ('g' | 'G')
-   ;
-
-
-fragment H
-   : ('h' | 'H')
-   ;
-
-
-fragment I
-   : ('i' | 'I')
-   ;
-
-
-fragment J
-   : ('j' | 'J')
-   ;
-
-
-fragment K
-   : ('k' | 'K')
-   ;
-
-
-fragment L
-   : ('l' | 'L')
-   ;
-
-
-fragment M
-   : ('m' | 'M')
-   ;
-
-
-fragment N
-   : ('n' | 'N')
-   ;
-
-
-fragment O
-   : ('o' | 'O')
-   ;
-
-
-fragment P
-   : ('p' | 'P')
-   ;
-
-
-fragment Q
-   : ('q' | 'Q')
-   ;
-
-
-fragment R
-   : ('r' | 'R')
-   ;
-
-
-fragment S
-   : ('s' | 'S')
-   ;
-
-
-fragment T
-   : ('t' | 'T')
-   ;
-
-
-fragment U
-   : ('u' | 'U')
-   ;
-
-
-fragment V
-   : ('v' | 'V')
-   ;
-
-
-fragment W
-   : ('w' | 'W')
-   ;
-
-
-fragment X
-   : ('x' | 'X')
-   ;
-
-
-fragment Y
-   : ('y' | 'Y')
-   ;
-
-
-fragment Z
-   : ('z' | 'Z')
    ;
 
 
