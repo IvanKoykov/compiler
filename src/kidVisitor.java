@@ -16,6 +16,12 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(kidParser.ProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#glavprog}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlavprog(kidParser.GlavprogContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -34,11 +40,23 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVars(kidParser.VarsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#procedure}.
+	 * Visit a parse tree produced by {@link kidParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProcedure(kidParser.ProcedureContext ctx);
+	T visitType(kidParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#functions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctions(kidParser.FunctionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#parametr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParametr(kidParser.ParametrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#statement}.
 	 * @param ctx the parse tree
@@ -46,35 +64,23 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(kidParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#callFunct}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallFunct(kidParser.CallFunctContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#assignstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssignstmt(kidParser.AssignstmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#callstmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCallstmt(kidParser.CallstmtContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link kidParser#writestmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWritestmt(kidParser.WritestmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link kidParser#bangstmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBangstmt(kidParser.BangstmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link kidParser#beginstmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBeginstmt(kidParser.BeginstmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#ifstmt}.
 	 * @param ctx the parse tree
@@ -88,6 +94,12 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhilestmt(kidParser.WhilestmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#forstmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForstmt(kidParser.ForstmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#breakstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -100,17 +112,35 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContinuestmt(kidParser.ContinuestmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#beginFor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBeginFor(kidParser.BeginForContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCondition(kidParser.ConditionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#conditionunion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionunion(kidParser.ConditionunionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExpression(kidParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#expressionunion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionunion(kidParser.ExpressionunionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#term}.
 	 * @param ctx the parse tree
@@ -123,6 +153,42 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFactor(kidParser.FactorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral(kidParser.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#integerLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntegerLiteral(kidParser.IntegerLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#floatingPointLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloatingPointLiteral(kidParser.FloatingPointLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#booleanLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(kidParser.BooleanLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#charLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCharLiteral(kidParser.CharLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#nullLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNullLiteral(kidParser.NullLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#ident}.
 	 * @param ctx the parse tree
