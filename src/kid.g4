@@ -157,13 +157,13 @@ PROCEDURE
    ;
 
 FLOAT
-	: '-'? NUMBER'.'NUMBER
+	:  NUMBER'.'NUMBER
 	;
 
 INTEGER
-	: '-'? NUMBER
+	:  NUMBER
 	;
-	
+
 fragment A
    : ('a' | 'A')
    ;
