@@ -10,11 +10,11 @@ block
    ;
 
 consts
-   : CONST ident '=' number (',' ident '=' number)* ';'
+   : CONST ident '=' (INTEGER | FLOAT) (',' ident '=' (INTEGER | FLOAT))* ';'
    ;
 
 vars
-   : VAR ident (',' ident)* ';'
+   : VAR ident ('=' (INTEGER | FLOAT))? (',' ident ('=' (INTEGER | FLOAT))?)* ';'
    ;
 
 procedure
@@ -22,7 +22,7 @@ procedure
    ;
 
 statement
-   : (assignstmt | callstmt | writestmt | qstmt | bangstmt | beginstmt | ifstmt | whilestmt)?
+   : (assignstmt | callstmt | writestmt | bangstmt | beginstmt | ifstmt | whilestmt)?
    ;
 
 assignstmt
@@ -35,10 +35,6 @@ callstmt
 
 writestmt
    : WRITE ident
-   ;
-
-qstmt
-   : '?' ident
    ;
 
 bangstmt
@@ -57,6 +53,13 @@ whilestmt
    : WHILE condition DO statement
    ;
 
+breakstmt
+	: BREAK
+	;
+
+continuestmt
+	: CONTINUE
+	;
 condition
    : ODD expression
    | expression ('=' | '#' | '<' | '<=' | '>' | '>=') expression
@@ -72,6 +75,8 @@ term
 
 factor
    : ident
+   | INTEGER
+   | FLOAT
    | number
    | '(' expression ')'
    ;
@@ -84,6 +89,13 @@ number
    : NUMBER
    ;
 
+BREAK
+	: B R E A K
+	;
+
+CONTINUE
+	: C O N T I N U E
+	;
 
 WRITE
    : W R I T E
@@ -144,7 +156,14 @@ PROCEDURE
    : P R O C E D U R E
    ;
 
+FLOAT
+	: '-'? NUMBER'.'NUMBER
+	;
 
+INTEGER
+	: '-'? NUMBER
+	;
+	
 fragment A
    : ('a' | 'A')
    ;
