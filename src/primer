@@ -1,0 +1,77 @@
+const int a = 5;
+const int b = 23.2;
+
+
+
+funct testFunct(int a, float b){
+    int i=4;
+    write( a + b );
+}
+
+main()
+{
+
+    int g = 34;
+
+    char c = 'b';
+
+     int f = testFunct(g, a) + 1;
+
+    // if
+    if (g == f) {
+        write(g);
+    }
+
+    //if c else
+    if (true) {
+       g = 33;
+       write(g);
+    } else {
+       g = 228;
+       write(g);
+    }
+    //проверка 'null'
+    int tr=null;
+    g=null;
+  // and в if
+    if (g > f and g != f){
+        write(g);
+    }
+
+    // вывод
+    write(f);
+    write(3, 4, funcName(a, b));
+
+
+    //  while
+    while ( a > b and b == true) {
+       write(a + 1);
+    }
+   //'continue и вложенность условий'
+    while ( true) {
+           write(a + 1);
+           write('chill');
+           if(true){
+            continue;
+           }
+        }
+
+    //тест for 1
+    for (int i = 0; i < 10; i = i + 1) {
+        write(i);
+    }
+
+    //тест for 2
+    for (int i, int j; i < 10; i = i + 1) {
+           write(i);
+    }
+
+    //тест for 3
+    for (i, int j = getIntI(); i < 10; i = i + 1) {
+                write(i);
+    }
+    funct testFunct1(int a, float b){
+        int i=4;
+        write( a + b );
+    }
+}

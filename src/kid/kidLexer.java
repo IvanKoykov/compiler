@@ -1,4 +1,5 @@
-// Generated from D:/иван/compyle/src\kid.g4 by ANTLR 4.8
+// Generated from D:/иван/compyle/src/kid\kid.g4 by ANTLR 4.8
+package kid;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
