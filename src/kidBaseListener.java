@@ -255,18 +255,6 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(kidParser.ExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpression(kidParser.ExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExpressionunion(kidParser.ExpressionunionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -274,6 +262,18 @@ public class kidBaseListener implements kidListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpressionunion(kidParser.ExpressionunionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression(kidParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression(kidParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

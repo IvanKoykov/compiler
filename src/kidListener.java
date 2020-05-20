@@ -207,16 +207,6 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitConditionunion(kidParser.ConditionunionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpression(kidParser.ExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link kidParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpression(kidParser.ExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link kidParser#expressionunion}.
 	 * @param ctx the parse tree
 	 */
@@ -226,6 +216,16 @@ public interface kidListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpressionunion(kidParser.ExpressionunionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link kidParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(kidParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link kidParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(kidParser.ExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link kidParser#term}.
 	 * @param ctx the parse tree

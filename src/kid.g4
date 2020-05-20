@@ -8,7 +8,7 @@ glavprog
     :'main()' block
     ;
 block
-   : '{' consts? (vars';')? functions* statement '}'
+   : '{' (statement)* '}'
    ;
 
 consts
@@ -31,7 +31,7 @@ parametr
     : (vars (','vars)*)?
     ;
 statement
-   : (assignstmt | writestmt';'  | ifstmt | whilestmt| forstmt | expression';' | callFunct';')?
+   : assignstmt | writestmt';' | ifstmt | whilestmt| forstmt | expression';' | callFunct';' | consts | vars';' | functions
    ;
 callFunct
     : ident '(' expressionunion ')'
@@ -41,7 +41,7 @@ assignstmt
    ;
 
 writestmt
-   : 'write' '(' expression ')'
+   : 'write' '(' expressionunion ')'
    ;
 
 
@@ -63,7 +63,7 @@ continuestmt
 	: 'continue'
 	;
 beginFor
-    :(expression|vars)
+    :(vars|expression)(',' ( vars|expression))*
     ;
 
 condition
@@ -74,12 +74,12 @@ condition
  conditionunion
     :condition (('and'|'or')condition)*
     ;
+ expressionunion
+    : (expression(',' expression)*)?
+    ;
 expression
    : ('+' | '-')? term (('+' | '-') term)*
    ;
-expressionunion
-    : (expression(',' expression)*)?
-    ;
 
 term
    : factor (('*' | '/'|'%') factor)*
@@ -100,10 +100,10 @@ literal
 	|	nullLiteral
 	;
 integerLiteral
-    :   number
+    :   NUMBER
     ;
 floatingPointLiteral
-    :   number.number*
+    :  NUMBER '.' NUMBER*
     ;
 booleanLiteral
 	:	'true'
