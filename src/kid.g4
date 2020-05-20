@@ -31,29 +31,29 @@ parametr
     : (vars (','vars)*)?
     ;
 statement
-   : assignstmt | writestmt';' | ifstmt | whilestmt| forstmt | expression';' | callFunct';' | consts | vars';' | functions
+   : assignstmt | writestmt';' | ifstmt | whilestmt| forstmt | continuestmt';' | expression';' | callFunct';' | consts | vars';' | functions
    ;
 callFunct
-    : ident '(' expressionunion ')'
+    : ident '(' (expression(',' expression)*)? ')'
     ;
 assignstmt
    : ident '=' expression
    ;
 
 writestmt
-   : 'write' '(' expressionunion ')'
+   : 'write' '(' (expression(',' expression)*)? ')'
    ;
 
 
 ifstmt
-   : 'if''(' conditionunion')' block ('else' block)?
+   : 'if''(' condition (('and'|'or')condition)*')' block ('else' block)?
    ;
 
 whilestmt
-   : 'while' '('conditionunion ')' block
+   : 'while' '('condition (('and'|'or')condition)* ')' block
    ;
 forstmt
-    : 'for' '('beginFor';'conditionunion';'expression')'block
+    : 'for' '('(vars|expression)(',' ( vars|expression))*';'condition (('and'|'or')condition)*';'expression')'block
     ;
 breakstmt
 	: 'break'
@@ -62,25 +62,15 @@ breakstmt
 continuestmt
 	: 'continue'
 	;
-beginFor
-    :(vars|expression)(',' ( vars|expression))*
-    ;
-
 condition
    : expression
    |callFunct
    | expression ('==' | '!=' | '<' | '<=' | '>' | '>=') expression
    ;
- conditionunion
-    :condition (('and'|'or')condition)*
-    ;
- expressionunion
-    : (expression(',' expression)*)?
-    ;
+
 expression
    : ('+' | '-')? term (('+' | '-') term)*
    ;
-
 term
    : factor (('*' | '/'|'%') factor)*
    ;
