@@ -112,29 +112,11 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContinuestmt(kidParser.ContinuestmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#beginFor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBeginFor(kidParser.BeginForContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCondition(kidParser.ConditionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link kidParser#conditionunion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConditionunion(kidParser.ConditionunionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link kidParser#expressionunion}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionunion(kidParser.ExpressionunionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#expression}.
 	 * @param ctx the parse tree

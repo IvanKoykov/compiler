@@ -219,18 +219,6 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBeginFor(kidParser.BeginForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBeginFor(kidParser.BeginForContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterCondition(kidParser.ConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -238,30 +226,6 @@ public class kidBaseListener implements kidListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCondition(kidParser.ConditionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterConditionunion(kidParser.ConditionunionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConditionunion(kidParser.ConditionunionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpressionunion(kidParser.ExpressionunionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpressionunion(kidParser.ExpressionunionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
