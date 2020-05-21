@@ -101,6 +101,13 @@ public class kidBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ki
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitExpressionunion(kidParser.ExpressionunionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitIfstmt(kidParser.IfstmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -143,7 +150,14 @@ public class kidBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ki
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExpression(kidParser.ExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitConditionunion(kidParser.ConditionunionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSummExpression(kidParser.SummExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -58,11 +58,11 @@ LineComment=44
 ','=14
 'write'=15
 'if'=16
-'and'=17
-'or'=18
-'else'=19
-'while'=20
-'for'=21
+'else'=17
+'while'=18
+'for'=19
+'and'=20
+'or'=21
 'break'=22
 'continue'=23
 '=='=24

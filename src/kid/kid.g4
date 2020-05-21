@@ -34,23 +34,24 @@ statement
    : assignstmt | writestmt';' | ifstmt | whilestmt| forstmt | continuestmt';' | expression';' | callFunct';' | consts | vars';' | functions
    ;
 callFunct
-    : ident '(' (expression(',' expression)*)? ')'
+    : ident '(' expressionunion ')'
     ;
 assignstmt
    : ident '=' expression
    ;
 
 writestmt
-   : 'write' '(' (expression(',' expression)*)? ')'
+   : 'write' '(' expressionunion ')'
    ;
-
-
+expressionunion
+    :   (expression(',' expression)*)?
+    ;
 ifstmt
-   : 'if''(' condition (('and'|'or')condition)*')' block ('else' block)?
+   : 'if''(' conditionunion')' block ('else' block)?
    ;
 
 whilestmt
-   : 'while' '('condition (('and'|'or')condition)* ')' block
+   : 'while' '('conditionunion ')' block
    ;
 forstmt
     : 'for' '('(vars|expression)(',' ( vars|expression))*';'condition (('and'|'or')condition)*';'expression')'block
@@ -67,9 +68,11 @@ condition
    |callFunct
    | expression ('==' | '!=' | '<' | '<=' | '>' | '>=') expression
    ;
-
+conditionunion
+    :condition (('and'|'or')condition)*
+    ;
 expression
-   : ('+' | '-')? term (('+' | '-') term)*
+   : ('+' | '-')? term (('+' | '-') term)* # SummExpression
    ;
 term
    : factor (('*' | '/'|'%') factor)*

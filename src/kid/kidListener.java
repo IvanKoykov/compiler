@@ -128,6 +128,16 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitWritestmt(kidParser.WritestmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link kidParser#expressionunion}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionunion(kidParser.ExpressionunionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link kidParser#expressionunion}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionunion(kidParser.ExpressionunionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link kidParser#ifstmt}.
 	 * @param ctx the parse tree
 	 */
@@ -188,15 +198,27 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitCondition(kidParser.ConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#expression}.
+	 * Enter a parse tree produced by {@link kidParser#conditionunion}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(kidParser.ExpressionContext ctx);
+	void enterConditionunion(kidParser.ConditionunionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link kidParser#expression}.
+	 * Exit a parse tree produced by {@link kidParser#conditionunion}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(kidParser.ExpressionContext ctx);
+	void exitConditionunion(kidParser.ConditionunionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SummExpression}
+	 * labeled alternative in {@link kidParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSummExpression(kidParser.SummExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SummExpression}
+	 * labeled alternative in {@link kidParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSummExpression(kidParser.SummExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link kidParser#term}.
 	 * @param ctx the parse tree

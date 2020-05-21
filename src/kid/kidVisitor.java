@@ -83,6 +83,12 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWritestmt(kidParser.WritestmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link kidParser#expressionunion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionunion(kidParser.ExpressionunionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link kidParser#ifstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -119,11 +125,18 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCondition(kidParser.ConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#expression}.
+	 * Visit a parse tree produced by {@link kidParser#conditionunion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(kidParser.ExpressionContext ctx);
+	T visitConditionunion(kidParser.ConditionunionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SummExpression}
+	 * labeled alternative in {@link kidParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSummExpression(kidParser.SummExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#term}.
 	 * @param ctx the parse tree

@@ -1,25 +1,33 @@
 const int a = 5;
-const int b = 23.2;
+const float b = 23.2;
 
 
-
-funct testFunct(int a, float b){
-    int i=4;
-    write( a + b );
-}
+//funct testFunct(int a, float b){
+//    int i=4;
+//    write( a + b );
+//}
 
 main()
 {
-
+    write('hello');
     int g = 34;
-
+    g=20;
+    int re=2;
     char c = 'b';
-
-     int f = testFunct(g, a) + 1;
-
+    int qwer=g+re;
+    write(qwer);
+  //  int f = testFunct(g, a) + 1;
+    //write(f)
     // if
-    if (g == f) {
+    re=5;
+    if (g < re) {
         write(g);
+        write('K');
+    }
+    else
+    {
+        write(re);
+        write('priv');
     }
 
     //if c else
@@ -32,19 +40,19 @@ main()
     }
     //проверка 'null'
     int tr=null;
-    g=null;
+
   // and в if
-    if (g > f and g != f){
+    if (g > re and g != re){
         write(g);
     }
 
     // вывод
-    write(f);
-    write(3, 4, funcName(a, b));
+    write(re);
+    //write(3, 4, funcName(a, b));
 
 
     //  while
-    while ( a > b and b == true) {
+    while ( a > b and b > 1) {
        write(a + 1);
     }
    //'continue и вложенность условий'
@@ -58,20 +66,17 @@ main()
 
     //тест for 1
     for (int i = 0; i < 10; i = i + 1) {
-        write(i);
+        write(re);
     }
 
     //тест for 2
-    for (int i, int j; i < 10; i = i + 1) {
-           write(i);
-    }
+   // for (int i, int j; i < 10; i = i + 1) {
+     //      write(re);
+    //}
 
     //тест for 3
-    for (i, int j = getIntI(); i < 10; i = i + 1) {
-                write(i);
-    }
-    funct testFunct1(int a, float b){
-        int i=4;
-        write( a + b );
-    }
+    //for (i, int j = getIntI(); i < 10; i = i + 1) {
+      //          write(i);
+    //}
+
 }

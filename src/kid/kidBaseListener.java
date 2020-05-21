@@ -160,6 +160,18 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpressionunion(kidParser.ExpressionunionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionunion(kidParser.ExpressionunionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfstmt(kidParser.IfstmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -232,13 +244,25 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(kidParser.ExpressionContext ctx) { }
+	@Override public void enterConditionunion(kidParser.ConditionunionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(kidParser.ExpressionContext ctx) { }
+	@Override public void exitConditionunion(kidParser.ConditionunionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSummExpression(kidParser.SummExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSummExpression(kidParser.SummExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
