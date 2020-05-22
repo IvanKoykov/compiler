@@ -71,11 +71,11 @@ condition
 conditionunion
     :condition (('and'|'or')condition)*
     ;
+
 expression
-   : ('+' | '-')? term (('+' | '-') term)* # SummExpression
-   ;
-term
-   : factor (('*' | '/'|'%') factor)*
+   :expression op=('+' | '-') expression # SummExpression
+   |expression op=('*' | '/'|'%') expression # FactorMult
+   |literal #FactorExp
    ;
 
 factor
@@ -140,3 +140,12 @@ LineComment
     :   '//' ~[\r\n]*
         -> skip
     ;
+    //expression
+    //    :    ident
+    //        |literal
+    //        | '(' factor ')'
+    //        | assignstmt
+    //        |callFunct
+    //        |expression op = ('*' | '/' | '%') expression # MultipliesExpression
+    //        |expression op = ( '+' | '-' ) expression # SummExpressi
+    //        ;
