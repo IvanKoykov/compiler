@@ -1,5 +1,5 @@
-import kid.kidBaseVisitor;
 import kid.kidParser;
+import kid.kidBaseVisitor;
 import java.util.HashMap;
 import java.util.Stack;
 import java.lang.Override;
@@ -53,21 +53,147 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 //    public String  visitCondition(kidParser.ConditionContext ctx) {
 //        return null;
 //    }
+    @Override
+    public String visitFactorMult(kidParser.FactorMultContext ctx) {
+        Object left = visit(ctx.expression(0));
+        String sub = ".";
+        Object right;
+        float delf=0;
+        float multf=0;
+        float delwithpointf=1;
+        int deli=0;
+        int multi=0;
+        int delwithpointi=0;
+        boolean flag=false;
+        if (ctx.expression(1) != null) {
+            right = visit(ctx.expression(1));
+        } else {
+            right = new String("0");
+        }
+        String sl=left.toString();
+        String sr=right.toString();
+        //System.out.println(sl+" +++++"+sr);
+        if (sl.indexOf(sub) != -1 || sr.indexOf(sub)!=-1)
+        {
+          //  System.out.println(sl+" +++++"+sr);
+            flag=true;
+            float leftfloat= Float.parseFloat(left.toString());
+            float  rightfloat = Float.parseFloat(right.toString());
+             delf = leftfloat / rightfloat;
+             multf = leftfloat * rightfloat;
+             delwithpointf = leftfloat % rightfloat;
+            //System.out.println("float0 "+ delwithpointf+"  "+leftfloat+" % "+rightfloat);
 
-//    @Override
-//    public String visitSummExpression(kidParser.SummExpressionContext ctx) {
-//        Object left = new Object(visit(ctx.getChild()));
-//        String right = new String(visit(ctx);
-//        switch (ctx.term().toString()) {
-//            case "+":
-//                return String.valueOf(left + right);
-//
-//            case "-": {
-//                return String.valueOf(left - right);
-//            }
-//
-//        }
-//    }
+        }
+        else {
+           // System.out.println(sl+" ----------"+sr);
+            flag=false;
+            int leftint = Integer.parseInt(left.toString());
+            int rightint = Integer.parseInt(right.toString());
+             deli = leftint / rightint;
+             multi = leftint * rightint;
+             delwithpointi = leftint%rightint;
+          //  System.out.println("int0 "+ delwithpointi);
+        }
+
+        switch (ctx.op.getText()) {
+            case "*":
+              //  System.out.println(sl+" *"+sr);
+                //currentTable.put(, exp);
+                if(flag==true)
+                return String.valueOf(multf);
+                else
+                    return String.valueOf(multi);
+            case "/": {
+                //System.out.println(sl+" /"+sr);
+                if(flag==true)
+                //currentTable.put(VarName, exp);
+                return String.valueOf(delf);
+                else
+                    return String.valueOf(deli);
+            }
+            case "%": {
+                //System.out.println(sl + " %" + sr);
+                if (flag == true) {
+                  //  System.out.println("float1 "+ delwithpointf);
+                    return String.valueOf(delwithpointf);
+                } else {
+                    //System.out.println("int1 "+delwithpointi);
+                    return String.valueOf(delwithpointi);
+                }
+            }
+            }
+
+
+        return null;
+    }
+
+    @Override
+    public String visitSummExpression(kidParser.SummExpressionContext ctx) {
+        Object left = visit(ctx.expression(0));
+        String sub = ".";
+        Object right;
+        float summf = 0;
+        float differf = 0;
+        int summi = 0;
+        int differi = 0;
+        boolean flag = false;
+        // Object left = ctx.expression(0).getText();
+        if (ctx.expression(1) != null) {
+            right = visit(ctx.expression(1));
+        } else {
+            right = new String("0");
+        }
+        String sl = left.toString();
+        String sr = right.toString();
+        //System.out.println(sl+" +++++"+sr);
+        if (sl.indexOf(sub) != -1 || sr.indexOf(sub) != -1) {
+            //  System.out.println(sl+" +++++"+sr);
+            flag = true;
+            float leftfloat = Float.parseFloat(left.toString());
+            float rightfloat = Float.parseFloat(right.toString());
+            summf = leftfloat + rightfloat;
+            differf = leftfloat - rightfloat;
+            //delwithpointf = leftfloat % rightfloat;
+            //System.out.println("float0 "+ delwithpointf+"  "+leftfloat+" % "+rightfloat);
+
+        } else {
+            // System.out.println(sl+" ----------"+sr);
+            flag = false;
+            int leftint = Integer.parseInt(left.toString());
+            int rightint = Integer.parseInt(right.toString());
+            summi = leftint + rightint;
+            differi = leftint - rightint;
+            // delwithpointi = leftint%rightint;
+            //  System.out.println("int0 "+ delwithpointi);
+        }
+        //System.out.println(left+"  "+right);
+//        int leftint=Integer.parseInt(left.toString());
+//        int rightint=Integer.parseInt(right.toString());
+//        int summ=leftint+rightint;
+//        int razn=leftint-rightint;
+        // System.out.println(leftint+"  "+rightint+" = "+summ);
+        // System.out.println(ctx.expression(0).getText()+" CTX");
+        //System.out.println(ctx.op.getText()+" CTX");
+        switch (ctx.op.getText()) {
+            case "+":
+                //  System.out.println(sl+" *"+sr);
+                //currentTable.put(, exp);
+                if (flag == true)
+                    return String.valueOf(summf);
+                else
+                    return String.valueOf(summi);
+            case "-": {
+                //System.out.println(sl+" /"+sr);
+                if (flag == true)
+                    //currentTable.put(VarName, exp);
+                    return String.valueOf(differf);
+                else
+                    return String.valueOf(differi);
+            }
+        }
+        return null;
+    }
 
     @Override public String  visitConsts(kidParser.ConstsContext ctx) {
         currentTable = consts;
@@ -125,6 +251,7 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 
             return null;
     }
+
     @Override
     public String visitExpressionunion(kidParser.ExpressionunionContext ctx) {
             StringBuilder result = new StringBuilder();
@@ -145,9 +272,12 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 @Override
 public String visitWritestmt(kidParser.WritestmtContext ctx) {
     String toPrint = (String) visit(ctx.expressionunion());
+    //toPrint +=(String)visit(ctx.expressionunion());
+
     System.out.println("write( " + toPrint + ")");
     return null;
 }
+
 //        String toPrint = "";
 //        for (Object e : expList){
 //            toPrint += e.toString() + " ";
@@ -168,11 +298,13 @@ public String visitWritestmt(kidParser.WritestmtContext ctx) {
     @Override
     public String  visitAssignstmt(kidParser.AssignstmtContext ctx) {
         try {
-            String varName = ctx.ident().getText();
-            Object exp = (Object) visit(ctx.expression());
-
-            currentTable.put(varName, exp);
-            System.out.println("Assigment: " + varName + " " + exp);
+            String VarName = ctx.ident().getText();
+           // System.out.println(VarName+" VarName");
+            Object exp = visit(ctx.expression());
+           // System.out.println(exp+" EXP");
+            //if(getVariable(VarName))
+            currentTable.put(VarName, exp);
+            System.out.println("Assigment: " + VarName + " " + exp);
         } catch (Exception e) {
                 System.out.println("!!!Error!!!");
                 System.out.println(e.fillInStackTrace());

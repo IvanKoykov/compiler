@@ -11,7 +11,9 @@ public class Main {
     public static void main(String[] args)  {
         try {
             ANTLRInputStream input = new ANTLRInputStream(
-                    new FileInputStream(new File("src/primer"))
+                    new FileInputStream(new File("src/float"))
+                    //new FileInputStream(new File("src/text.txt"))
+                    //new FileInputStream(new File("src/primer"))
             );
             //CharStream input = CharStreams.fromFileName("src/primer")
           //  System.out.println(input);

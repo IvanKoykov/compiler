@@ -73,9 +73,10 @@ conditionunion
     ;
 
 expression
-   :expression op=('+' | '-') expression # SummExpression
+   :
+    factor #FactorExp
+   |expression op=('+' | '-') expression # SummExpression
    |expression op=('*' | '/'|'%') expression # FactorMult
-   |literal #FactorExp
    ;
 
 factor

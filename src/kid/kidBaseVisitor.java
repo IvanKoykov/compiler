@@ -157,6 +157,13 @@ public class kidBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ki
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFactorMult(kidParser.FactorMultContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitSummExpression(kidParser.SummExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -164,7 +171,7 @@ public class kidBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ki
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTerm(kidParser.TermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFactorExp(kidParser.FactorExpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

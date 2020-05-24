@@ -131,18 +131,26 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionunion(kidParser.ConditionunionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FactorMult}
+	 * labeled alternative in {@link kidParser#expression()}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorMult(kidParser.FactorMultContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SummExpression}
-	 * labeled alternative in {@link kidParser#expression}.
+	 * labeled alternative in {@link kidParser#expression()}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSummExpression(kidParser.SummExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#term}.
+	 * Visit a parse tree produced by the {@code FactorExp}
+	 * labeled alternative in {@link kidParser#expression()}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTerm(kidParser.TermContext ctx);
+	T visitFactorExp(kidParser.FactorExpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#factor}.
 	 * @param ctx the parse tree

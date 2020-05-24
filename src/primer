@@ -11,10 +11,13 @@ main()
 {
     write('hello');
     int g = 34;
-    g=20;
+    g=21;
     int re=2;
+    write(re);
     char c = 'b';
-    int qwer=g+re;
+    write(g);
+    write(re);
+    qwer=g+re;
     write(qwer);
   //  int f = testFunct(g, a) + 1;
     //write(f)
@@ -47,27 +50,33 @@ main()
     }
 
     // вывод
+    write('first');
+    write(re);
     write(re);
     //write(3, 4, funcName(a, b));
 
 
     //  while
-    while ( a > b and b > 1) {
-       write(a + 1);
-    }
+   // while ( a > b and b > 1) {
+     // write(a + 1);
+    //}
+    write('second');
+    write(re);
    //'continue и вложенность условий'
     while ( true) {
            write(a + 1);
            write('chill');
            if(true){
-            continue;
+             continue;
+             write('provirkaNaString');
+
            }
         }
 
     //тест for 1
-    for (int i = 0; i < 10; i = i + 1) {
-        write(re);
-    }
+  //  for (int i = 0; i < 10; i = i + 1) {
+    //    write(re);
+    //}
 
     //тест for 2
    // for (int i, int j; i < 10; i = i + 1) {

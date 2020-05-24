@@ -256,6 +256,18 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFactorMult(kidParser.FactorMultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorMult(kidParser.FactorMultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSummExpression(kidParser.SummExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -268,13 +280,13 @@ public class kidBaseListener implements kidListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(kidParser.TermContext ctx) { }
+	@Override public void enterFactorExp(kidParser.FactorExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(kidParser.TermContext ctx) { }
+	@Override public void exitFactorExp(kidParser.FactorExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,0 +1,17 @@
+main()
+{
+    write('hello');
+    //float
+    int g=3;
+    float f=1.5;
+    float q=g%f;
+    write(q);
+    q=g*f;
+    write(q);
+    q=g/f
+    write(q);
+    q=g-f;
+    write(q);
+    q=g+f;
+    write(q);
+    }
