@@ -1,0 +1,30 @@
+//funct Myfunct (int vn)
+//{
+  //  vn=20;
+   // write (vn);
+//}
+
+main()
+{
+int g=9;
+int r=4;
+int wer=r+g;
+g=4;
+if (g == r and g>1) {
+        g = 33;
+         write(g);
+       }
+if (g == r and g<1) {
+    g = 228;
+    write(g);
+    }
+    else
+    {
+    write(wer);
+    }
+
+  while(r > g) {
+  write('p');
+  }
+  //Myfunct(int vn=19)
+}

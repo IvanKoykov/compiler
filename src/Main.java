@@ -11,9 +11,11 @@ public class Main {
     public static void main(String[] args)  {
         try {
             ANTLRInputStream input = new ANTLRInputStream(
-                    new FileInputStream(new File("src/float"))
+                    //new FileInputStream(new File("src/float"))
                     //new FileInputStream(new File("src/text.txt"))
                     //new FileInputStream(new File("src/primer"))
+                   // new FileInputStream(new File("src/char"))
+                    new FileInputStream(new File("src/if"))
             );
             //CharStream input = CharStreams.fromFileName("src/primer")
           //  System.out.println(input);
@@ -21,7 +23,8 @@ public class Main {
             CommonTokenStream tokens=new CommonTokenStream(lexer);
             kidParser parser = new kidParser(tokens);
             ParseTree tree = parser.program();
-            MyVisitor visitor = new MyVisitor();
+            //MyVisitor2 visitor = new MyVisitor2();
+            MyVisitor visitor=new MyVisitor();
             visitor.visit(tree);
         } catch (IIOException e) {
             e.printStackTrace();

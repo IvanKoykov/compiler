@@ -7,7 +7,7 @@ import java.lang.Override;
 
 public class MyVisitor extends kidBaseVisitor<Object> {
     HashMap<String, Object> consts = new HashMap<>();
-    Stack<HashMap<String, Object>> functionTables = new Stack<>();
+    HashMap<String, Object> functionTables = new HashMap<>();
     Stack<HashMap<String, Object>> tables = new Stack<>();
     Stack<HashMap<String, Object>> currentStack;
     HashMap<String, Object> currentTable;
@@ -26,30 +26,133 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 
         throw new Exception("No such variable in the table");
     }
+
     @Override
     public String visitIfstmt(kidParser.IfstmtContext ctx) {
         System.out.println("begin if :");
-        String conclusionResult = (String)visit(ctx.conditionunion());
+        String conclusionResult = (String) visit(ctx.conditionunion());
         if (conclusionResult.equals("true")) {
             currentStack.push(currentTable);
             visit(ctx.block(0));
             currentTable = currentStack.pop();
         }
+        else if((ctx.block(1)!=null))
+            {
+                currentStack.push(currentTable);
+                visit(ctx.block(1));
+                currentTable=currentStack.pop();
+            }
+//        else
+//        {
+//
+//        }
         return null;
     }
-    public String visitConditionunion(kidParser.ConditionunionContext ctx) {
+
+    @Override
+    public String visitWhilestmt(kidParser.WhilestmtContext ctx) {
+        System.out.println("bigin while: ");
+        Object conditionResult = visit(ctx.conditionunion());
+        while (conditionResult.equals("true")) {
+            for (int i = 0; i < ctx.block().statement().size(); i++)
+                visit(ctx.block().statement(i));
+            conditionResult = visit(ctx.conditionunion());
+        }
+        return null;
+    }
+
+    @Override
+    public String visitOr(kidParser.OrContext ctx) {
         for (int i = 0; i < ctx.condition().size(); i++) {
-            String result = (String) visitChildren(ctx);
+            Object result = visitChildren(ctx);
             if (result == null) {
                 System.err.println("Conclusion NULL exception");
-              //  System.exit(1);
+                //  System.exit(1);
             }
+            //assert result != null;
             if (result.equals("false")) return "false";
         }
         return "true";
     }
 
-//    @Override
+    @Override
+    public String visitCompar(kidParser.ComparContext ctx) {
+        Object left = visit(ctx.expression(0));
+        Object right = visit(ctx.expression(1));
+        String sub = ".";
+        boolean flag;
+
+        if (left.toString().contains(sub) || right.toString().contains(sub)) flag = true;
+        else flag = false;
+
+        switch (ctx.op.getText()) {
+            case "==":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) == Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) == Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+
+            case "!=":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) != Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) != Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+            case "<":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) < Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) < Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+            case "<=":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) <= Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) <= Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+            case ">":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) > Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) > Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+            case ">=":
+                if (flag) {
+                    if (Float.parseFloat(left.toString()) >= Float.parseFloat(right.toString()))
+                        return "true";
+                    else return "false";
+                } else {
+                    if (Integer.parseInt(left.toString()) >= Integer.parseInt(right.toString()))
+                        return "true";
+                    else return "false";
+                }
+        }
+        return null;
+
+    }
+
+    //    @Override
 //    public String  visitCondition(kidParser.ConditionContext ctx) {
 //        return null;
 //    }
@@ -58,71 +161,75 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         Object left = visit(ctx.expression(0));
         String sub = ".";
         Object right;
-        float delf=0;
-        float multf=0;
-        float delwithpointf=1;
-        int deli=0;
-        int multi=0;
-        int delwithpointi=0;
-        boolean flag=false;
+        float delf = 0;
+        float multf = 0;
+        float delwithpointf = 1;
+        int deli = 0;
+        int multi = 0;
+        int delwithpointi = 0;
+        boolean flag = false;
         if (ctx.expression(1) != null) {
             right = visit(ctx.expression(1));
         } else {
             right = new String("0");
         }
-        String sl=left.toString();
-        String sr=right.toString();
+        String sl = left.toString();
+        String sr = right.toString();
+        char firstsimleft = sl.charAt(0);
+        char firstsimright = sr.charAt(0);
+
+        if (Character.isLetter(firstsimleft) || Character.isLetter(firstsimright)) {
+            System.out.println("ERROR TYPE");
+        }
         //System.out.println(sl+" +++++"+sr);
-        if (sl.indexOf(sub) != -1 || sr.indexOf(sub)!=-1)
-        {
-          //  System.out.println(sl+" +++++"+sr);
-            flag=true;
-            float leftfloat= Float.parseFloat(left.toString());
-            float  rightfloat = Float.parseFloat(right.toString());
-             delf = leftfloat / rightfloat;
-             multf = leftfloat * rightfloat;
-             delwithpointf = leftfloat % rightfloat;
+        if (sl.contains(sub) || sr.contains(sub)) {
+            //  System.out.println(sl+" +++++"+sr);
+            flag = true;
+            float leftfloat = Float.parseFloat(left.toString());
+            float rightfloat = Float.parseFloat(right.toString());
+            delf = leftfloat / rightfloat;
+            multf = leftfloat * rightfloat;
+            delwithpointf = leftfloat % rightfloat;
             //System.out.println("float0 "+ delwithpointf+"  "+leftfloat+" % "+rightfloat);
 
-        }
-        else {
-           // System.out.println(sl+" ----------"+sr);
-            flag=false;
+        } else {
+            // System.out.println(sl+" ----------"+sr);
+            //  flag=false;
             int leftint = Integer.parseInt(left.toString());
             int rightint = Integer.parseInt(right.toString());
-             deli = leftint / rightint;
-             multi = leftint * rightint;
-             delwithpointi = leftint%rightint;
-          //  System.out.println("int0 "+ delwithpointi);
+            deli = leftint / rightint;
+            multi = leftint * rightint;
+            delwithpointi = leftint % rightint;
+            //  System.out.println("int0 "+ delwithpointi);
         }
 
         switch (ctx.op.getText()) {
             case "*":
-              //  System.out.println(sl+" *"+sr);
+                //  System.out.println(sl+" *"+sr);
                 //currentTable.put(, exp);
-                if(flag==true)
-                return String.valueOf(multf);
+                if (flag)
+                    return String.valueOf(multf);
                 else
                     return String.valueOf(multi);
             case "/": {
                 //System.out.println(sl+" /"+sr);
-                if(flag==true)
-                //currentTable.put(VarName, exp);
-                return String.valueOf(delf);
+                if (flag)
+                    //currentTable.put(VarName, exp);
+                    return String.valueOf(delf);
                 else
                     return String.valueOf(deli);
             }
             case "%": {
                 //System.out.println(sl + " %" + sr);
-                if (flag == true) {
-                  //  System.out.println("float1 "+ delwithpointf);
+                if (flag) {
+                    //  System.out.println("float1 "+ delwithpointf);
                     return String.valueOf(delwithpointf);
                 } else {
                     //System.out.println("int1 "+delwithpointi);
                     return String.valueOf(delwithpointi);
                 }
             }
-            }
+        }
 
 
         return null;
@@ -133,22 +240,28 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         Object left = visit(ctx.expression(0));
         String sub = ".";
         Object right;
-        float summf = 0;
-        float differf = 0;
-        int summi = 0;
-        int differi = 0;
-        boolean flag = false;
-        // Object left = ctx.expression(0).getText();
         if (ctx.expression(1) != null) {
             right = visit(ctx.expression(1));
         } else {
             right = new String("0");
         }
-        String sl = left.toString();
-        String sr = right.toString();
-        //System.out.println(sl+" +++++"+sr);
-        if (sl.indexOf(sub) != -1 || sr.indexOf(sub) != -1) {
-            //  System.out.println(sl+" +++++"+sr);
+        float summf = 0;
+        float differf = 0;
+        int summi = 0;
+        int differi = 0;
+        char summc = '\n';
+        char differc = '\n';
+        boolean flag = false;
+        String stringleft = left.toString();
+        String stringright = right.toString();
+        char firstsimleft = stringleft.charAt(0);
+        char firstsimright = stringright.charAt(0);
+
+        if (Character.isLetter(firstsimleft) || Character.isLetter(firstsimright)) {
+            System.out.println("ERROR TYPE");
+        }
+
+        if (stringleft.contains(sub) || stringright.contains(sub)) {
             flag = true;
             float leftfloat = Float.parseFloat(left.toString());
             float rightfloat = Float.parseFloat(right.toString());
@@ -158,8 +271,6 @@ public class MyVisitor extends kidBaseVisitor<Object> {
             //System.out.println("float0 "+ delwithpointf+"  "+leftfloat+" % "+rightfloat);
 
         } else {
-            // System.out.println(sl+" ----------"+sr);
-            flag = false;
             int leftint = Integer.parseInt(left.toString());
             int rightint = Integer.parseInt(right.toString());
             summi = leftint + rightint;
@@ -179,13 +290,16 @@ public class MyVisitor extends kidBaseVisitor<Object> {
             case "+":
                 //  System.out.println(sl+" *"+sr);
                 //currentTable.put(, exp);
-                if (flag == true)
+                if (flag) {
+                    //System.out.println("kak float");
                     return String.valueOf(summf);
-                else
+                } else {
+                    //System.out.println("kak int");
                     return String.valueOf(summi);
+                }
             case "-": {
                 //System.out.println(sl+" /"+sr);
-                if (flag == true)
+                if (flag)
                     //currentTable.put(VarName, exp);
                     return String.valueOf(differf);
                 else
@@ -195,18 +309,41 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         return null;
     }
 
-    @Override public String  visitConsts(kidParser.ConstsContext ctx) {
+    @Override
+    public String visitConsts(kidParser.ConstsContext ctx) {
         currentTable = consts;
         visitChildren(ctx);
         return null;
     }
 
-        @Override
-        public String visitProgram (kidParser.ProgramContext ctx)
-                {
-             visitChildren(ctx);
-            return null;
-        }
+//    @Override
+//    public String visitProgram(kidParser.ProgramContext ctx) {
+//        visitChildren(ctx);
+//        return null;
+//    }
+//
+//    //    @Override String visitFunctions(kidParser.FunctionsContext ctx)
+////    {
+////        HashMap<String, Object> currentBlocktable = new HashMap<>();
+////        currentTable = currentBlocktable;
+////        visitChildren(ctx);
+////        return null;
+////    }
+//    private void callFunct(String ident) throws Exception {
+//        if (functionTables.containsKey(ident)) {
+//            functionTables.get(ident);
+//        } else throw new Exception("Procedure" + ident + " is not identified");
+//    }
+//
+//    @Override
+//    public String visitCallFunct(kidParser.CallFunctContext ctx) {
+//        try {
+//            callFunct(ctx.ident().getText());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
         @Override
         public String visitBlock (kidParser.BlockContext ctx){
@@ -261,47 +398,34 @@ public class MyVisitor extends kidBaseVisitor<Object> {
             }
             return result.toString();
         }
-//@Override
-////    public String visitWritestmt(kidParser.WritestmtContext ctx) {
-////       // ArrayList<Object> expList = (ArrayList<Object>) visit(ctx.expressionunion());
-////       // String expList=ctx.getText();
-////    String write =  visit(ctx.expressionunion());
-////    System.out.println("write( " + write + ")");
-////    return null;
-////}
+
 @Override
 public String visitWritestmt(kidParser.WritestmtContext ctx) {
     String toPrint = (String) visit(ctx.expressionunion());
     //toPrint +=(String)visit(ctx.expressionunion());
-
     System.out.println("write( " + toPrint + ")");
     return null;
 }
 
-//        String toPrint = "";
-//        for (Object e : expList){
-//            toPrint += e.toString() + " ";
-//        }
-//        System.out.println("write( " + toPrint + ")");
-//        return null;
-//    }
+
     @Override
     public Object visitIdent (kidParser.IdentContext ctx) {
         try {
-            System.out.println("GetVariable:" + ctx.getText() + " is: " + getVariable(ctx.getText()));
+            //System.out.println("GetVariable:" + ctx.getText() + " is: " + getVariable(ctx.getText()));
             return getVariable(ctx.getText());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
     @Override
     public String  visitAssignstmt(kidParser.AssignstmtContext ctx) {
         try {
             String VarName = ctx.ident().getText();
-           // System.out.println(VarName+" VarName");
+           ///System.out.println(VarName+" VarName");
             Object exp = visit(ctx.expression());
-           // System.out.println(exp+" EXP");
+            //System.out.println(exp+" EXP");
             //if(getVariable(VarName))
             currentTable.put(VarName, exp);
             System.out.println("Assigment: " + VarName + " " + exp);
@@ -315,7 +439,14 @@ public String visitWritestmt(kidParser.WritestmtContext ctx) {
 
     @Override
         public String visitLiteral (kidParser.LiteralContext ctx){
-        if (ctx.charLiteral()!= null) return ctx.charLiteral().STRING().getText();
+        if (ctx.charLiteral()!= null)
+        {
+            if(ctx.charLiteral().STRING()!=null)
+            return ctx.charLiteral().STRING().getText();
+            if(ctx.charLiteral().NUMBER()!=null)
+                return ctx.charLiteral().NUMBER().getText();
+        }
+
         return ctx.getText();
         }
 
@@ -340,7 +471,7 @@ public String visitWritestmt(kidParser.WritestmtContext ctx) {
         @Override
         public Object visitCharLiteral (kidParser.CharLiteralContext ctx){
             System.out.println("Char: " + ctx.getText());
-            return new Character(ctx.STRING().getText().charAt(0));
+            return ctx.STRING().getText().charAt(0);
         }
 
     }

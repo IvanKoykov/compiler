@@ -1,0 +1,16 @@
+main()
+{
+    write('hello');
+    int g=4;
+    float f=1.5;
+    char a='w';
+    write(a);
+    int q=60;
+    q=g/a;
+    write(q);
+    q=g+a
+    write(q);
+
+    packeg symbol
+    packed inter кроме access
+}

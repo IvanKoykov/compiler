@@ -1,17 +1,20 @@
 main()
 {
     write('hello');
-    //float
-    int g=3;
+    int g=4;
     float f=1.5;
-    float q=g%f;
+    int q=60;
+    q=g%f;
     write(q);
     q=g*f;
     write(q);
     q=g/f
     write(q);
+    write('SummIRazn');
     q=g-f;
     write(q);
     q=g+f;
     write(q);
+    write('2');
+
     }

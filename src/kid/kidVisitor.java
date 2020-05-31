@@ -119,17 +119,33 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContinuestmt(kidParser.ContinuestmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#condition}.
+	 * Visit a parse tree produced by the {@code Exp}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCondition(kidParser.ConditionContext ctx);
+	T visitExp(kidParser.ExpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#conditionunion}.
+	 * Visit a parse tree produced by the {@code CallFunctionCondition}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConditionunion(kidParser.ConditionunionContext ctx);
+	T visitCallFunctionCondition(kidParser.CallFunctionConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Compar}
+	 * labeled alternative in {@link kidParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompar(kidParser.ComparContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link kidParser#conditionunion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOr(kidParser.OrContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FactorMult}
 	 * labeled alternative in {@link kidParser#expression()}.
@@ -152,11 +168,40 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFactorExp(kidParser.FactorExpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#factor}.
+	 * Visit a parse tree produced by the {@code IdentNameExp}
+	 * labeled alternative in {@link kidParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(kidParser.FactorContext ctx);
+	T visitIdentNameExp(kidParser.IdentNameExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LiteralExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralExp(kidParser.LiteralExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParenFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenFactor(kidParser.ParenFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssigmntExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssigmntExp(kidParser.AssigmntExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallFunctionFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallFunctionFactor(kidParser.CallFunctionFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#literal}.
 	 * @param ctx the parse tree

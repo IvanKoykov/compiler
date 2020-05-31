@@ -64,12 +64,12 @@ continuestmt
 	: 'continue'
 	;
 condition
-   : expression
-   |callFunct
-   | expression ('==' | '!=' | '<' | '<=' | '>' | '>=') expression
+   : expression #Exp
+   |callFunct #CallFunctionCondition
+   | expression op=('==' | '!=' | '<' | '<=' | '>' | '>=') expression #Compar
    ;
 conditionunion
-    :condition (('and'|'or')condition)*
+    :condition (opp=('and'|'or')condition)* #Or
     ;
 
 expression
@@ -80,11 +80,11 @@ expression
    ;
 
 factor
-   : ident
-   |literal
-   | '(' factor ')'
-   | assignstmt
-   |callFunct
+   : ident #IdentNameExp
+   |literal #LiteralExp
+   | '(' factor ')' #ParenFactor
+   | assignstmt #AssigmntExp
+   |callFunct #CallFunctionFactor
    ;
 literal
 	:	integerLiteral
@@ -104,7 +104,7 @@ booleanLiteral
 	|	'false'
 	;
 charLiteral
-    :  '\'' STRING '\''
+    :  '\'' (STRING | NUMBER)'\''
     ;
 nullLiteral
     :   'null'
@@ -115,8 +115,9 @@ ident
 number
    : NUMBER
    ;
-
-
+//LETER
+//    :[a-zA-z]
+//    ;
 STRING
    : [a-zA-Z] [a-zA-Z]*
    ;

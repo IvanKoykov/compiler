@@ -188,25 +188,53 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitContinuestmt(kidParser.ContinuestmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#condition}.
+	 * Enter a parse tree produced by the {@code Exp}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void enterCondition(kidParser.ConditionContext ctx);
+	void enterExp(kidParser.ExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link kidParser#condition}.
+	 * Exit a parse tree produced by the {@code Exp}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void exitCondition(kidParser.ConditionContext ctx);
+	void exitExp(kidParser.ExpContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#conditionunion}.
+	 * Enter a parse tree produced by the {@code CallFunctionCondition}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void enterConditionunion(kidParser.ConditionunionContext ctx);
+	void enterCallFunctionCondition(kidParser.CallFunctionConditionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link kidParser#conditionunion}.
+	 * Exit a parse tree produced by the {@code CallFunctionCondition}
+	 * labeled alternative in {@link kidParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void exitConditionunion(kidParser.ConditionunionContext ctx);
+	void exitCallFunctionCondition(kidParser.CallFunctionConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Compar}
+	 * labeled alternative in {@link kidParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompar(kidParser.ComparContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Compar}
+	 * labeled alternative in {@link kidParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompar(kidParser.ComparContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link kidParser#conditionunion}.
+	 * @param ctx the parse tree
+	 */
+	void enterOr(kidParser.OrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link kidParser#conditionunion}.
+	 * @param ctx the parse tree
+	 */
+	void exitOr(kidParser.OrContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FactorMult}
 	 * labeled alternative in {@link kidParser#expression()}.
@@ -244,15 +272,65 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitFactorExp(kidParser.FactorExpContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#factor}.
+	 * Enter a parse tree produced by the {@code IdentNameExp}
+	 * labeled alternative in {@link kidParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor(kidParser.FactorContext ctx);
+	void enterIdentNameExp(kidParser.IdentNameExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link kidParser#factor}.
+	 * Exit a parse tree produced by the {@code IdentNameExp}
+	 * labeled alternative in {@link kidParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor(kidParser.FactorContext ctx);
+	void exitIdentNameExp(kidParser.IdentNameExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LiteralExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralExp(kidParser.LiteralExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LiteralExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralExp(kidParser.LiteralExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParenFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenFactor(kidParser.ParenFactorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParenFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenFactor(kidParser.ParenFactorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssigmntExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssigmntExp(kidParser.AssigmntExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssigmntExp}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssigmntExp(kidParser.AssigmntExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallFunctionFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallFunctionFactor(kidParser.CallFunctionFactorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallFunctionFactor}
+	 * labeled alternative in {@link kidParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallFunctionFactor(kidParser.CallFunctionFactorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link kidParser#literal}.
 	 * @param ctx the parse tree
