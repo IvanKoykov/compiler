@@ -7,8 +7,11 @@ import java.lang.Override;
 
 public class MyVisitor extends kidBaseVisitor<Object> {
     HashMap<String, Object> consts = new HashMap<>();
+    String procedure = "";
+    boolean global = false;
     HashMap<String, Object> functionTables = new HashMap<>();
     Stack<HashMap<String, Object>> tables = new Stack<>();
+    HashMap<String, kidParser.BlockContext> function = new HashMap<>();
     Stack<HashMap<String, Object>> currentStack;
     HashMap<String, Object> currentTable;
 
@@ -316,35 +319,38 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         return null;
     }
 
-//    @Override
-//    public String visitProgram(kidParser.ProgramContext ctx) {
+    @Override
+    public String visitProgram(kidParser.ProgramContext ctx) {
+        visitChildren(ctx);
+        return null;
+    }
+
+    //    @Override String visitFunctions(kidParser.FunctionsContext ctx)
+//    {
+//        HashMap<String, Object> currentBlocktable = new HashMap<>();
+//        currentTable = currentBlocktable;
 //        visitChildren(ctx);
 //        return null;
 //    }
-//
-//    //    @Override String visitFunctions(kidParser.FunctionsContext ctx)
-////    {
-////        HashMap<String, Object> currentBlocktable = new HashMap<>();
-////        currentTable = currentBlocktable;
-////        visitChildren(ctx);
-////        return null;
-////    }
 //    private void callFunct(String ident) throws Exception {
-//        if (functionTables.containsKey(ident)) {
-//            functionTables.get(ident);
+//        if (function.containsKey(ident)) {
+//            function.get(ident);
 //        } else throw new Exception("Procedure" + ident + " is not identified");
 //    }
-//
+
+
+
 //    @Override
-//    public String visitCallFunct(kidParser.CallFunctContext ctx) {
-//        try {
-//            callFunct(ctx.ident().getText());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//    public Object visitFunctions(kidParser.FunctionsContext ctx) {
+//        String ident = ctx.ident().getText();
+//        function.put(ident, ctx.block());
+//        procedure = ident;
+//        global = false;
+//        visit(ctx.block());
+//        global = true;
+//        procedure = "";
 //        return null;
 //    }
-
         @Override
         public String visitBlock (kidParser.BlockContext ctx){
             HashMap<String, Object> currentBlocktable = new HashMap<>();
@@ -371,6 +377,44 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 //    {
 //
 //    }
+//@Override
+//public String visitCallFunct(kidParser.CallFunctContext ctx) {
+//    String Varname=ctx.ident().getText();
+//    String toPrint = (String) visit(ctx.expressionunion());
+//    //toPrint +=(String)visit(ctx.expressionunion());
+//    //System.out.println("write( " + toPrint + ")");
+//    return null;
+//    System.out.println("bigin while: ");
+//    Object conditionResult = visit(ctx.expressionunion());
+//    while (conditionResult.equals("true")) {
+//        for (int i = 0; i < ctx.block().statement().size(); i++)
+//            visit(ctx.block().statement(i));
+//        conditionResult = visit(ctx.conditionunion());
+//    }
+//    return null;
+//}
+
+
+
+
+//    @Override
+//    public Object visitFunctions(kidParser.FunctionsContext ctx) {
+//        String VarName = ctx.ident().getText();
+//        String type = ctx.type().getText();
+//        Object value = visit(ctx.parametr());
+//        if (VarName == null) {
+//            System.out.println("Error: you lost ident");
+//        }
+//            if (type == null) {
+//                System.out.println("Error: you lost type");
+//                if (ctx.children.contains(ctx.parametr()))
+//                    value = visit(ctx.parametr());
+//                currentStack = tables;
+//                visitChildren(ctx);
+//            }
+//            return null;
+//        }
+
         @Override
         public Object visitVars (kidParser.VarsContext ctx){
             String varName = ctx.ident().getText();

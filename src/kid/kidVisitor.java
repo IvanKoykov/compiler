@@ -148,21 +148,21 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	T visitOr(kidParser.OrContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FactorMult}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFactorMult(kidParser.FactorMultContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SummExpression}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSummExpression(kidParser.SummExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FactorExp}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

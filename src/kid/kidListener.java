@@ -237,37 +237,37 @@ public interface kidListener extends ParseTreeListener {
 	void exitOr(kidParser.OrContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FactorMult}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void enterFactorMult(kidParser.FactorMultContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code FactorMult}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void exitFactorMult(kidParser.FactorMultContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code SummExpression}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void enterSummExpression(kidParser.SummExpressionContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code SummExpression}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void exitSummExpression(kidParser.SummExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FactorExp}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void enterFactorExp(kidParser.FactorExpContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code FactorExp}
-	 * labeled alternative in {@link kidParser#expression()}.
+	 * labeled alternative in {@link kidParser#expression}.
 	 * @param ctx the parse tree
 	 */
 	void exitFactorExp(kidParser.FactorExpContext ctx);

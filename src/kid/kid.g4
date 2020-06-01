@@ -2,7 +2,7 @@
 grammar kid;
 
 program
-   :consts? functions? glavprog
+   : consts? functions?   glavprog
    ;
 glavprog
     :'main()' block
@@ -18,15 +18,16 @@ consts
 vars
    :   type ident ('=' expression)?
    ;
+functions
+    : 'funct' type ident '('parametr')' block
+    ;
 type
     : 'char'
     | 'int'
     | 'bool'
     | 'float'
     ;
-functions
-   : 'funct' ident '('parametr')' block
-   ;
+
 parametr
     : (vars (','vars)*)?
     ;

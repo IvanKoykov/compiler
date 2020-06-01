@@ -1,7 +1,8 @@
-//funct Myfunct (int vn)
+const int  a=100;
+//funct int Myfunct (int vn)
 //{
-  //  vn=20;
-   // write (vn);
+    //vn=20;
+  //  write ('W');
 //}
 
 main()
@@ -10,6 +11,7 @@ int g=9;
 int r=4;
 int wer=r+g;
 g=4;
+write(a);
 if (g == r and g>1) {
         g = 33;
          write(g);
