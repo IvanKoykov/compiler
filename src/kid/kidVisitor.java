@@ -41,17 +41,17 @@ public interface kidVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVars(kidParser.VarsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link kidParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType(kidParser.TypeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link kidParser#functions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunctions(kidParser.FunctionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link kidParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(kidParser.TypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link kidParser#parametr}.
 	 * @param ctx the parse tree

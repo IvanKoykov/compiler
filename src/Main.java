@@ -15,7 +15,8 @@ public class Main {
                     //new FileInputStream(new File("src/text.txt"))
                     //new FileInputStream(new File("src/primer"))
                    // new FileInputStream(new File("src/char"))
-                    new FileInputStream(new File("src/if"))
+                   new FileInputStream(new File("src/if"))
+                   // new FileInputStream(new File(args[0]))
             );
             //CharStream input = CharStreams.fromFileName("src/primer")
           //  System.out.println(input);

@@ -52,14 +52,14 @@ public class kidBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ki
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitType(kidParser.TypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFunctions(kidParser.FunctionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFunctions(kidParser.FunctionsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitType(kidParser.TypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

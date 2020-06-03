@@ -31,41 +31,37 @@ public class MyVisitor extends kidBaseVisitor<Object> {
     }
 
     @Override
-    public String visitIfstmt(kidParser.IfstmtContext ctx) {
-        System.out.println("begin if :");
-        String conclusionResult = (String) visit(ctx.conditionunion());
-        if (conclusionResult.equals("true")) {
-            currentStack.push(currentTable);
-            visit(ctx.block(0));
-            currentTable = currentStack.pop();
-        }
-        else if((ctx.block(1)!=null))
-            {
-                currentStack.push(currentTable);
-                visit(ctx.block(1));
-                currentTable=currentStack.pop();
-            }
-//        else
-//        {
-//
-//        }
+    public Object visitBreakstmt(kidParser.BreakstmtContext ctx) {
+       System.out.println("Break:");
+        GenerLLVM.Break();
         return null;
     }
 
     @Override
-    public String visitWhilestmt(kidParser.WhilestmtContext ctx) {
+    public Object visitContinuestmt(kidParser.ContinuestmtContext context) {
+        GenerLLVM.Continue();
+        return null;
+    }
+
+
+    @Override
+    public Object visitWhilestmt(kidParser.WhilestmtContext ctx) {
         System.out.println("bigin while: ");
+        GenerLLVM.while_start();
+
         Object conditionResult = visit(ctx.conditionunion());
+        GenerLLVM.while_condition((String)conditionResult);
         while (conditionResult.equals("true")) {
             for (int i = 0; i < ctx.block().statement().size(); i++)
                 visit(ctx.block().statement(i));
             conditionResult = visit(ctx.conditionunion());
         }
+        GenerLLVM.while_end();
         return null;
     }
 
     @Override
-    public String visitOr(kidParser.OrContext ctx) {
+    public Object visitOr(kidParser.OrContext ctx) {
         for (int i = 0; i < ctx.condition().size(); i++) {
             Object result = visitChildren(ctx);
             if (result == null) {
@@ -79,7 +75,7 @@ public class MyVisitor extends kidBaseVisitor<Object> {
     }
 
     @Override
-    public String visitCompar(kidParser.ComparContext ctx) {
+    public Object visitCompar(kidParser.ComparContext ctx) {
         Object left = visit(ctx.expression(0));
         Object right = visit(ctx.expression(1));
         String sub = ".";
@@ -159,8 +155,9 @@ public class MyVisitor extends kidBaseVisitor<Object> {
 //    public String  visitCondition(kidParser.ConditionContext ctx) {
 //        return null;
 //    }
+
     @Override
-    public String visitFactorMult(kidParser.FactorMultContext ctx) {
+    public Object visitFactorMult(kidParser.FactorMultContext ctx) {
         Object left = visit(ctx.expression(0));
         String sub = ".";
         Object right;
@@ -239,7 +236,7 @@ public class MyVisitor extends kidBaseVisitor<Object> {
     }
 
     @Override
-    public String visitSummExpression(kidParser.SummExpressionContext ctx) {
+    public Object visitSummExpression(kidParser.SummExpressionContext ctx) {
         Object left = visit(ctx.expression(0));
         String sub = ".";
         Object right;
@@ -313,46 +310,46 @@ public class MyVisitor extends kidBaseVisitor<Object> {
     }
 
     @Override
-    public String visitConsts(kidParser.ConstsContext ctx) {
+    public Object visitConsts(kidParser.ConstsContext ctx) {
         currentTable = consts;
         visitChildren(ctx);
         return null;
     }
 
     @Override
-    public String visitProgram(kidParser.ProgramContext ctx) {
+    public Object visitProgram(kidParser.ProgramContext ctx) {
         visitChildren(ctx);
+        GenerLLVM.generate();
         return null;
     }
 
-    //    @Override String visitFunctions(kidParser.FunctionsContext ctx)
+//        @Override String visitFunctions(kidParser.FunctionsContext ctx)
 //    {
 //        HashMap<String, Object> currentBlocktable = new HashMap<>();
 //        currentTable = currentBlocktable;
 //        visitChildren(ctx);
 //        return null;
 //    }
-//    private void callFunct(String ident) throws Exception {
-//        if (function.containsKey(ident)) {
-//            function.get(ident);
-//        } else throw new Exception("Procedure" + ident + " is not identified");
-//    }
+    private void callFunct(String ident) throws Exception {
+        if (function.containsKey(ident)) {
+           GenerLLVM.call(ident);
+            // function.get(ident);
+        } else throw new Exception("Procedure" + ident + " is not identified");
+    }
 
+    @Override
+    public Object visitFunctions(kidParser.FunctionsContext ctx) {
+       try {
+          callFunct(ctx.ident().getText());
+       }
+       catch (Exception e) {
+           e.printStackTrace();
+       }
+        return null;
+    }
 
-
-//    @Override
-//    public Object visitFunctions(kidParser.FunctionsContext ctx) {
-//        String ident = ctx.ident().getText();
-//        function.put(ident, ctx.block());
-//        procedure = ident;
-//        global = false;
-//        visit(ctx.block());
-//        global = true;
-//        procedure = "";
-//        return null;
-//    }
         @Override
-        public String visitBlock (kidParser.BlockContext ctx){
+        public Object visitBlock (kidParser.BlockContext ctx){
             HashMap<String, Object> currentBlocktable = new HashMap<>();
             currentTable = currentBlocktable;
             visitChildren(ctx);
@@ -362,15 +359,19 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         }
 
         @Override
-        public String visitGlavprog (kidParser.GlavprogContext ctx){
+        public Object visitGlavprog (kidParser.GlavprogContext ctx){
+        String id=ctx.block().getText();
         currentStack=tables;
-        visitChildren(ctx);
+
+        GenerLLVM.function_start(id);
+            visitChildren(ctx);
+           GenerLLVM.function_end();
             return null;
     }
 
         @Override
-        public String visitStatement (kidParser.StatementContext ctx){
-            return (String) visitChildren(ctx);
+        public Object visitStatement (kidParser.StatementContext ctx){
+            return  visitChildren(ctx);
         }
 
 //    @Override Object visitFunctions(kidParser.FunctionsContext ctx)
@@ -420,21 +421,27 @@ public class MyVisitor extends kidBaseVisitor<Object> {
             String varName = ctx.ident().getText();
             String type = ctx.type().getText();
             Object value = visit(ctx.expression());
-            if (ctx.children.contains(ctx.expression()))
-                value = visit(ctx.expression());
             currentTable.put(varName, value);
-            if (value != null)
-                System.out.println("Vars: " + type + " " + varName + " " + value.toString());
-            else
-                System.out.println("VarDeclaration (no value): " + type + " " + varName + " as NULL");
+            if (type.equals("int")) {
+                    if(value==null)
+                        value=0;
+                    GenerLLVM.declare_i32(varName, global, value);
+                   // GenerLLVM.assign_i32(varName, value, global);
+            }else {
+                if(type.equals("float"))
+                {
+                    if(value==null)
+                        value=0;
+                    GenerLLVM.declare_double(varName, global, value);
+                    //GenerLLVM.assign_double(varName, value, global);
+                }
 
-            currentTable.put(varName, value);
-
-            return null;
+            }
+                return null;
     }
 
     @Override
-    public String visitExpressionunion(kidParser.ExpressionunionContext ctx) {
+    public Object visitExpressionunion(kidParser.ExpressionunionContext ctx) {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < ctx.expression().size(); i ++) {
                 result.append(visit(ctx.expression(i)));
@@ -444,13 +451,59 @@ public class MyVisitor extends kidBaseVisitor<Object> {
         }
 
 @Override
-public String visitWritestmt(kidParser.WritestmtContext ctx) {
+public Object visitWritestmt(kidParser.WritestmtContext ctx) {
     String toPrint = (String) visit(ctx.expressionunion());
-    //toPrint +=(String)visit(ctx.expressionunion());
     System.out.println("write( " + toPrint + ")");
+    Object left = visit(ctx.expressionunion());
+    String sub = ".";
+    boolean flag=false;
+    String stringleft = left.toString();
+    if (stringleft.contains(sub)) {
+        flag = true;
+    } else {
+        flag = false;
+    }
+
+        if(flag==true) {
+            GenerLLVM.printf_double(toPrint,global);
+            GenerLLVM.print(toPrint);
+        }
+        else {
+            if (flag == false) {
+                GenerLLVM.printf_i32(toPrint, global);
+                GenerLLVM.print(toPrint);
+            } else {
+                GenerLLVM.printf_string(toPrint,toPrint.length(),global,procedure);
+                GenerLLVM.print(toPrint);
+            }
+        }
+
+   // GenerLLVM.printf_string(toPrint,toPrint.length(),global,procedure);
+
+
+    //Value.type=(Value)
+
     return null;
 }
-
+    @Override
+    public Object visitIfstmt(kidParser.IfstmtContext ctx) {
+        System.out.println("begin if :");
+        String conclusionResult = (String) visit(ctx.conditionunion());
+        GenerLLVM.if_start(conclusionResult);
+        if (conclusionResult.equals("true")) {
+            currentStack.push(currentTable);
+            visit(ctx.block(0));
+            currentTable = currentStack.pop();
+        }
+        else if((ctx.block(1)!=null))
+        {
+            currentStack.push(currentTable);
+            visit(ctx.block(1));
+            currentTable=currentStack.pop();
+        }
+//
+        return null;
+    }
 
     @Override
     public Object visitIdent (kidParser.IdentContext ctx) {
@@ -464,15 +517,29 @@ public String visitWritestmt(kidParser.WritestmtContext ctx) {
     }
 
     @Override
-    public String  visitAssignstmt(kidParser.AssignstmtContext ctx) {
+    public Object  visitAssignstmt(kidParser.AssignstmtContext ctx) {
         try {
-            String VarName = ctx.ident().getText();
-           ///System.out.println(VarName+" VarName");
-            Object exp = visit(ctx.expression());
-            //System.out.println(exp+" EXP");
-            //if(getVariable(VarName))
-            currentTable.put(VarName, exp);
-            System.out.println("Assigment: " + VarName + " " + exp);
+
+            String varName = ctx.ident().getText();
+            Object value = visit(ctx.expression());
+            Object left = visit(ctx.expression());
+            Object right = visit(ctx.expression());
+            if (ctx.children.contains(ctx.expression()))
+            {value = visit(ctx.expression());}
+            currentTable.put(varName, value);
+            currentTable.put(varName, value);
+            String sub=".";
+            String stringleft = left.toString();
+            String stringright = right.toString();
+            if (stringleft.contains(sub) || stringright.contains(sub)) {
+                if(value==null)
+                    value=0;
+                GenerLLVM.assign_double(varName,  global,value);
+            } else {
+                if(value==null)
+                    value=0;
+                GenerLLVM.assign_i32(varName, global,value);
+            }
         } catch (Exception e) {
                 System.out.println("!!!Error!!!");
                 System.out.println(e.fillInStackTrace());
@@ -482,7 +549,7 @@ public String visitWritestmt(kidParser.WritestmtContext ctx) {
 
 
     @Override
-        public String visitLiteral (kidParser.LiteralContext ctx){
+        public Object visitLiteral (kidParser.LiteralContext ctx){
         if (ctx.charLiteral()!= null)
         {
             if(ctx.charLiteral().STRING()!=null)

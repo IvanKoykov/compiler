@@ -58,16 +58,6 @@ public interface kidListener extends ParseTreeListener {
 	 */
 	void exitVars(kidParser.VarsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link kidParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterType(kidParser.TypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link kidParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitType(kidParser.TypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link kidParser#functions}.
 	 * @param ctx the parse tree
 	 */
@@ -77,6 +67,16 @@ public interface kidListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctions(kidParser.FunctionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link kidParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(kidParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link kidParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(kidParser.TypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link kidParser#parametr}.
 	 * @param ctx the parse tree

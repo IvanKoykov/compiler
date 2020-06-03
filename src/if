@@ -1,32 +1,41 @@
 const int  a=100;
 //funct int Myfunct (int vn)
 //{
-    //vn=20;
-  //  write ('W');
+ //   vn=20;
+ // write ('W');
 //}
 
 main()
 {
+float t=2.5;
+float b=2.5;
 int g=9;
 int r=4;
+g=10;
+float rer=b+t;
+write('r',rer);
 int wer=r+g;
-g=4;
-write(a);
-if (g == r and g>1) {
+write(wer);
+if (g == 10 and t==b) {
         g = 33;
          write(g);
        }
-if (g == r and g<1) {
+if (g == r) {
     g = 228;
+
     write(g);
     }
     else
     {
-    write(wer);
+    g=3;
+     write(g);
     }
+    g=10;
+    r=4
+   while(r < g) {
+   write('r',r);
+   r=r+1;
 
-  while(r > g) {
-  write('p');
-  }
-  //Myfunct(int vn=19)
+   }
+
 }
